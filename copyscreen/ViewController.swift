@@ -6,11 +6,23 @@
 //
 
 import UIKit
+import SwiftUI
+final class MovieDetailsViewController: UIViewController {
 
-class ViewController: UIViewController {
+    
     
     let dividerView = UIView()
     let passwordToggleButton = UIButton(type: .custom)
+    
+    let extraTitle: UILabel = {
+        let label = UILabel()
+        label.text = "ExtraTitle"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.textAlignment = .center
+        label.textColor = .red
+        return label
+    }()
+    
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -70,6 +82,7 @@ class ViewController: UIViewController {
         usernameTextField.translatesAutoresizingMaskIntoConstraints = false
         dividerView.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
+        extraTitle.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func layout() {
@@ -79,6 +92,17 @@ class ViewController: UIViewController {
         view.addSubview(usernameTextField)
         view.addSubview(dividerView)
         view.addSubview(passwordTextField)
+        view.addSubview(extraTitle)
+    
+        //extratitle
+        NSLayoutConstraint.activate([
+            extraTitle.bottomAnchor.constraint(equalToSystemSpacingBelow: titleLabel.topAnchor, multiplier: 0),
+            extraTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            extraTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            extraTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            
+        
+        ])
         
         //title
         NSLayoutConstraint.activate([
@@ -118,5 +142,20 @@ class ViewController: UIViewController {
             passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
+    }
+    struct MovieDetailsViewControllerRepresentable: UIViewRepresentable {
+        func makeUIView(context: Context) -> some UIView {
+            MovieDetailsViewController().view
+        }
+        func updateUIView(_ uiView: UIViewType, context: Context) {
+        }
+    }
+    
+    struct MovieDetailsViewController_Previews: PreviewProvider {
+        static var previews: some View {
+            MovieDetailsViewControllerRepresentable()
+                .edgesIgnoringSafeArea(.all)
+        }
+        
     }
 }
