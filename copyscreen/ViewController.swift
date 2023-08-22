@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 final class MovieDetailsViewController: UIViewController {
 
+   let stackView = UIStackView()
     
     
     let dividerView = UIView()
@@ -63,6 +64,18 @@ final class MovieDetailsViewController: UIViewController {
         return passwordTextField
     }()
     
+    let button: UIButton = {
+        let button = UIButton()
+        button.setTitle("Click", for: .normal)
+        button.backgroundColor = .link
+        button.layer.cornerRadius = 5
+        button.setTitleColor(.red, for: .highlighted)
+        
+        
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         style()
@@ -71,6 +84,12 @@ final class MovieDetailsViewController: UIViewController {
     
     func style() {
         view.backgroundColor = .orange
+        
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.distribution = .fillEqually
+        stackView.layer.borderColor = UIColor.red.cgColor
+        stackView.layer.borderWidth = CGFloat(1)
         
         passwordToggleButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
         passwordToggleButton.setImage(UIImage(systemName: "eye.slash.fill"), for: .selected)
@@ -83,65 +102,83 @@ final class MovieDetailsViewController: UIViewController {
         dividerView.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         extraTitle.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func layout() {
         // In the future use Stack View
-        view.addSubview(titleLabel)
-        view.addSubview(subtitleLabel)
-        view.addSubview(usernameTextField)
-        view.addSubview(dividerView)
-        view.addSubview(passwordTextField)
-        view.addSubview(extraTitle)
-    
-        //extratitle
+//        view.addSubview(titleLabel)
+//        view.addSubview(subtitleLabel)
+//        view.addSubview(usernameTextField)
+//        view.addSubview(dividerView)
+//        view.addSubview(passwordTextField)
+//        view.addSubview(extraTitle)
+        view.addSubview(stackView)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(subtitleLabel)
+        stackView.addArrangedSubview(usernameTextField)
+        stackView.addArrangedSubview(dividerView)
+        stackView.addArrangedSubview(passwordTextField)
+        stackView.addArrangedSubview(extraTitle)
+        stackView.addArrangedSubview(button)
+        
+        
         NSLayoutConstraint.activate([
-            extraTitle.bottomAnchor.constraint(equalToSystemSpacingBelow: titleLabel.topAnchor, multiplier: 0),
-            extraTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            extraTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            extraTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+           // stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 10),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
             
-        
         ])
         
-        //title
-        NSLayoutConstraint.activate([
-            subtitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: titleLabel.bottomAnchor, multiplier: 1),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-        ])
-        
-        //subtitle
-        NSLayoutConstraint.activate([
-            subtitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-        ])
-        
-        //usernameTextField
-        NSLayoutConstraint.activate([
-            usernameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            usernameTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            usernameTextField.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 15),
-            usernameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            usernameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-        ])
-        
-        // dividerView
-        dividerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        dividerView.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 1).isActive = true
-        dividerView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        dividerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        dividerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-        
-        //passwordTextField
-        NSLayoutConstraint.activate([
-            passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            passwordTextField.topAnchor.constraint(equalTo: dividerView.bottomAnchor, constant: 10),
-            passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-        ])
+//        //extratitle
+//        NSLayoutConstraint.activate([
+//            extraTitle.bottomAnchor.constraint(equalToSystemSpacingBelow: titleLabel.topAnchor, multiplier: 0),
+//            extraTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            extraTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//            extraTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+//
+//
+//        ])
+//
+//        //title
+//        NSLayoutConstraint.activate([
+//            subtitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: titleLabel.bottomAnchor, multiplier: 1),
+//            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+//        ])
+//
+//        //subtitle
+//        NSLayoutConstraint.activate([
+//            subtitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//            subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+//        ])
+//
+//        //usernameTextField
+//        NSLayoutConstraint.activate([
+//            usernameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            usernameTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            usernameTextField.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 15),
+//            usernameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//            usernameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+//        ])
+//
+//        // dividerView
+//        dividerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        dividerView.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 1).isActive = true
+//        dividerView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+//        dividerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+//        dividerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+//
+//        //passwordTextField
+//        NSLayoutConstraint.activate([
+//            passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            passwordTextField.topAnchor.constraint(equalTo: dividerView.bottomAnchor, constant: 10),
+//            passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//            passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+//        ])
     }
     struct MovieDetailsViewControllerRepresentable: UIViewRepresentable {
         func makeUIView(context: Context) -> some UIView {
